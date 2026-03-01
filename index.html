@@ -42,6 +42,85 @@
     overflow-x: hidden;
   }
 
+  /* NAVBAR */
+  .navbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 900;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 48px;
+    height: 56px;
+    background: rgba(10,10,11,0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s, background 0.3s;
+  }
+
+  .navbar.scrolled {
+    border-color: var(--border);
+    background: rgba(10,10,11,0.92);
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .nav-link {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 8px 14px;
+    transition: color 0.2s;
+  }
+  .nav-link:hover { color: var(--text); }
+  .nav-link.active { color: var(--accent); }
+
+  .nav-btn {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 7px 14px;
+    border-radius: 2px;
+    margin-left: 6px;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .nav-kofi {
+    border: 1px solid rgba(255,94,91,0.4);
+    color: #FF5E5B;
+  }
+  .nav-kofi:hover { background: #FF5E5B; color: #fff; }
+
+  .nav-discord {
+    border: 1px solid rgba(88,101,242,0.4);
+    color: #5865F2;
+  }
+  .nav-discord:hover { background: #5865F2; color: #fff; }
+
+  @media (max-width: 700px) {
+    .navbar { padding: 0 20px; }
+    .nav-link { display: none; }
+  }
+
   /* DISCORD BUTTON */
   .hero-btns {
     display: flex;
@@ -919,6 +998,19 @@
 </head>
 <body>
 
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="nav-logo">Fencil</div>
+  <div class="nav-links">
+    <button class="nav-link" onclick="smoothScrollTo(document.getElementById('sec-tos'))">ToS</button>
+    <button class="nav-link" onclick="smoothScrollTo(document.getElementById('sec-pricing'))">Pricing</button>
+    <button class="nav-link" onclick="smoothScrollTo(document.getElementById('sec-schedule'))">Schedule</button>
+    <button class="nav-link" onclick="smoothScrollTo(document.getElementById('sec-portfolio'))">Portfolio</button>
+    <a class="nav-btn nav-kofi" href="https://ko-fi.com/fencil/commissions" target="_blank">Ko-fi</a>
+    <a class="nav-btn nav-discord" href="https://discord.com/invite/Y3Pz2MZwe3" target="_blank">Discord</a>
+  </div>
+</nav>
+
 <!-- HERO -->
 <section class="hero">
   <div class="hero-tag">Paradiddle Chart Commissions</div>
@@ -945,7 +1037,7 @@
 <main id="main">
 
   <!-- TOS -->
-  <div class="section-header animate">
+  <div class="section-header animate" id="sec-tos">
     <span class="section-label">01 — Terms of Service</span>
     <div class="section-line"></div>
   </div>
@@ -974,7 +1066,7 @@
   </div>
 
   <!-- CHART PRICING -->
-  <div class="section-header animate">
+  <div class="section-header animate" id="sec-pricing">
     <span class="section-label">02 — Chart Pricing</span>
     <div class="section-line"></div>
   </div>
@@ -988,7 +1080,7 @@
     <div class="price-card featured">
       <div class="price-label">BASE PRICE</div>
       <div class="price-amount">€20</div>
-      <div class="price-desc">Comes with a standard basic drum kit included.</div>
+      <div class="price-desc">Comes with a standard drum kit included.</div>
     </div>
     <div class="price-card">
       <div class="price-label">CUSTOM KIT ONLY</div>
@@ -999,16 +1091,17 @@
 
   <ul class="price-list animate" style="margin-top: 16px;">
     <li><strong>Complexity surcharge:</strong>&nbsp; 1–100% extra, calculated as a % of (base + length price)</li>
-    <li><strong>Song length:</strong>&nbsp; €1 for every 30 seconds of the song</li>
+    <li><strong>Song length:</strong>&nbsp; €2 for every 1 minute of the song</li>
     <li><strong>Extra difficulties:</strong>&nbsp; €2 per additional difficulty on the chart</li>
   </ul>
 
-  <details class="example-dropdown animate">
+  <details class="example-dropdown animate" style="margin-top: 12px;">
     <summary>Pricing Example</summary>
     <div class="example-formula">
       Custom Kit + 6 min song + 50% complexity<br><br>
-      Base: <span class="formula-highlight">€30</span><br>
-      Length: <span class="formula-highlight">6 min × €2 = €12</span> &nbsp;&nbsp;<em style="color:var(--muted); font-size:0.78rem;">(€1 per 30s = €2/min)</em><br>
+      Base: <span class="formula-highlight">€20</span><br>
+      Custom Kit: <span class="formula-highlight">€10</span><br>
+      Length: <span class="formula-highlight">6 min × €2 = €12</span><br>
       Subtotal: <span class="formula-highlight">30 + 12 = €42</span><br>
       Complexity (50% of 42): <span class="formula-highlight">+ €21</span><br>
       ─────────────────────<br>
@@ -1079,7 +1172,7 @@
   </div>
 
   <!-- SCHEDULE -->
-  <div class="section-header animate">
+  <div class="section-header animate" id="sec-schedule">
     <span class="section-label">03 — Weekly Schedule</span>
     <div class="section-line"></div>
   </div>
@@ -1120,7 +1213,7 @@
   </div>
 
   <!-- PORTFOLIO -->
-  <div class="section-header animate">
+  <div class="section-header animate" id="sec-portfolio">
     <span class="section-label">04 — Portfolio</span>
     <div class="section-line"></div>
   </div>
@@ -1246,33 +1339,11 @@
 </div>
 
 <script>
-  // Custom smooth scroll
-
-
+  // Smooth scroll
   function smoothScrollTo(target) {
     const start = window.scrollY;
-    const end = target.getBoundingClientRect().top + window.scrollY;
-    const duration = 900;
-    let startTime = null;
-
-    function easeInOutCubic(t) {
-      return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-    }
-
-    function step(timestamp) {
-      if (!startTime) startTime = timestamp;
-      const elapsed = timestamp - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      window.scrollTo(0, start + (end - start) * easeInOutCubic(progress));
-      if (progress < 1) requestAnimationFrame(step);
-    }
-
-    requestAnimationFrame(step);
-  }
-
-  function smoothScrollTo(target) {
-    const start = window.scrollY;
-    const end = target.getBoundingClientRect().top + start;
+    const offset = 64; // navbar height offset
+    const end = target.getBoundingClientRect().top + start - offset;
     const duration = 900;
     const startTime = performance.now();
     function easeInOutCubic(t) {
@@ -1286,6 +1357,29 @@
     }
     requestAnimationFrame(step);
   }
+
+  // Navbar scroll & active state
+  const navbar = document.getElementById('navbar');
+  const sections = [
+    { id: 'sec-tos', btn: 0 },
+    { id: 'sec-pricing', btn: 1 },
+    { id: 'sec-schedule', btn: 2 },
+    { id: 'sec-portfolio', btn: 3 },
+  ];
+  const navLinks = document.querySelectorAll('.nav-link');
+
+  window.addEventListener('scroll', () => {
+    // Scrolled class
+    navbar.classList.toggle('scrolled', window.scrollY > 40);
+
+    // Active link highlight
+    let current = -1;
+    sections.forEach((s, i) => {
+      const el = document.getElementById(s.id);
+      if (el && el.getBoundingClientRect().top <= 80) current = i;
+    });
+    navLinks.forEach((l, i) => l.classList.toggle('active', i === current));
+  });
 
   // Fade-out animation on dropdown close
   document.querySelectorAll('details.example-dropdown').forEach(el => {
