@@ -31,6 +31,7 @@
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
 
   body {
     background: var(--bg);
@@ -90,6 +91,26 @@
     background: #4752c4;
     transform: translateY(-2px);
     box-shadow: 0 6px 28px rgba(88,101,242,0.4);
+  }
+
+  /* SCROLL ARROW */
+  .scroll-arrow {
+    position: absolute;
+    bottom: 36px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--muted);
+    background: none;
+    border: none;
+    cursor: pointer;
+    animation: fadeUp 0.6s 0.5s ease both, bounce 2s 1.5s ease-in-out infinite;
+    transition: color 0.2s;
+  }
+  .scroll-arrow:hover { color: var(--accent); }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
   }
 
   /* HERO KO-FI */
@@ -326,7 +347,7 @@
 
   .price-card .price-amount {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 52px;
+    font-size: 34px;
     color: var(--accent);
     line-height: 1;
     margin-bottom: 8px;
@@ -394,6 +415,146 @@
   .formula-highlight {
     color: var(--accent);
     font-weight: 600;
+  }
+
+  /* EXAMPLE DROPDOWN */
+  .example-dropdown {
+    background: rgba(245, 200, 66, 0.04);
+    border: 1px dashed rgba(245,200,66,0.3);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .example-dropdown summary {
+    padding: 12px 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    cursor: pointer;
+    user-select: none;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background 0.2s;
+  }
+
+  .example-dropdown summary::-webkit-details-marker { display: none; }
+
+  .example-dropdown summary::after {
+    content: '+';
+    font-size: 1rem;
+    transition: transform 0.2s;
+  }
+
+  .example-dropdown[open] summary::after {
+    transform: rotate(45deg);
+  }
+
+  .example-dropdown summary:hover {
+    background: rgba(245,200,66,0.06);
+  }
+
+  .example-dropdown .example-formula {
+    padding: 16px 18px 18px;
+    border-top: 1px dashed rgba(245,200,66,0.2);
+  }
+
+  .example-dropdown[open] .example-formula {
+    animation: dropFade 0.35s ease;
+  }
+
+  @keyframes dropFade {
+    from { opacity: 0; transform: translateY(-5px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .example-dropdown .example-formula.closing {
+    animation: dropFadeOut 0.3s ease forwards;
+  }
+
+  @keyframes dropFadeOut {
+    from { opacity: 1; transform: translateY(0); }
+    to   { opacity: 0; transform: translateY(-5px); }
+  }
+
+
+  /* BULK EQUATIONS */
+  .bulk-equations {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 16px;
+  }
+
+  .bulk-eq-row {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding: 12px 18px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+
+  .bulk-eq-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .bulk-eq-formula {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+    color: var(--text);
+  }
+
+  /* PRICING DIVIDER */
+  .pricing-divider {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 28px 0 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .pricing-divider::before,
+  .pricing-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* PRICING SPLIT */
+  .pricing-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-items: start;
+  }
+
+  .pricing-split-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .split-heading {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
   }
 
   /* DISCOUNT TABLE */
@@ -750,6 +911,7 @@
     .schedule-grid { grid-template-columns: repeat(4, 1fr); }
     .kit-showcase { grid-template-columns: 1fr; }
     .portfolio-grid { grid-template-columns: 1fr; }
+    .pricing-split { grid-template-columns: 1fr; }
     footer { padding: 30px 24px; flex-direction: column; gap: 12px; }
     .hero-badge { display: none; }
   }
@@ -774,10 +936,13 @@
   </div>
 
 
+  <button onclick="smoothScrollTo(document.getElementById('main'))" class="scroll-arrow" aria-label="Scroll down">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+  </button>
 </section>
 
 <!-- MAIN -->
-<main>
+<main id="main">
 
   <!-- TOS -->
   <div class="section-header animate">
@@ -814,7 +979,7 @@
     <div class="section-line"></div>
   </div>
 
-  <div class="price-grid animate">
+  <div class="price-grid animate" style="grid-template-columns: repeat(3, 1fr);">
     <div class="price-card">
       <div class="price-label">Custom Kit Base</div>
       <div class="price-amount">€30</div>
@@ -825,6 +990,11 @@
       <div class="price-amount">€20</div>
       <div class="price-desc">Comes with a standard basic drum kit included.</div>
     </div>
+    <div class="price-card">
+      <div class="price-label">Kit Only</div>
+      <div class="price-amount">€10</div>
+      <div class="price-desc">Any kit you want — custom kits, other drummer's kits, recreations, and more.</div>
+    </div>
   </div>
 
   <ul class="price-list animate" style="margin-top: 16px;">
@@ -833,8 +1003,8 @@
     <li><strong>Extra difficulties:</strong>&nbsp; €2 per additional difficulty on the chart</li>
   </ul>
 
-  <div class="example-box animate">
-    <div class="example-label">Pricing Example</div>
+  <details class="example-dropdown animate">
+    <summary>Pricing Example</summary>
     <div class="example-formula">
       Custom Kit + 6 min song + 50% complexity<br><br>
       Base: <span class="formula-highlight">€30</span><br>
@@ -844,7 +1014,48 @@
       ─────────────────────<br>
       <strong style="color:var(--accent); font-size:1.1rem;">Total: €63</strong>
     </div>
+  </details>
+
+  <!-- BULK DISCOUNTS (inside pricing section) -->
+  <div class="pricing-divider animate">Bulk Discounts</div>
+
+  <div class="tos-card animate" style="margin-bottom: 16px;">
+    Limited to <strong>5 slots</strong>. Applies to both charts and kits — discount on the combined total.
   </div>
+
+  <table class="discount-table animate">
+    <thead>
+      <tr>
+        <th>Quantity</th>
+        <th>Discount</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td class="full disc">Full price</td><td style="color:var(--muted);">No discount</td></tr>
+      <tr><td>2</td><td class="disc">15% off</td><td style="color:var(--muted);">Applied to combined total</td></tr>
+      <tr><td>3</td><td class="disc">20% off</td><td style="color:var(--muted);">Applied to combined total</td></tr>
+      <tr><td>4</td><td class="disc">25% off</td><td style="color:var(--muted);">Applied to combined total</td></tr>
+      <tr><td>5</td><td class="disc">30% off</td><td style="color:var(--muted);">Applied to combined total</td></tr>
+    </tbody>
+  </table>
+
+  <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; align-items: start;">
+    <details class="example-dropdown animate">
+      <summary>Example — 5 Songs</summary>
+      <div class="example-formula">
+        €35 + €40 + €45 + €50 + €55 = <span class="formula-highlight">€225</span><br>
+        €225 × (1 − 0.30) = <strong style="color:var(--accent);">€157.50</strong>
+      </div>
+    </details>
+    <details class="example-dropdown animate">
+      <summary>Example — 5 Kits</summary>
+      <div class="example-formula">
+        €10 × 5 = <span class="formula-highlight">€50</span><br>
+        €50 × (1 − 0.30) = <strong style="color:var(--accent);">€35</strong>
+      </div>
+    </div>
+  </details>
 
   <!-- BASIC KIT SHOWCASE -->
   <div class="section-header animate" style="margin-top: 60px;">
@@ -853,7 +1064,7 @@
   </div>
 
   <div class="tos-card animate" style="margin-bottom: 20px;">
-    Every <strong>€20 base commission</strong> comes with this basic kit included — a fully detailed, ornate drum setup ready to play.
+    This is what the Basic Kit looks like.
   </div>
 
   <div class="kit-showcase animate">
@@ -867,70 +1078,9 @@
     </div>
   </div>
 
-  <!-- BULK DISCOUNTS (CHARTS) -->
-  <div class="section-header animate">
-    <span class="section-label">03 — Bulk Discounts (Charts)</span>
-    <div class="section-line"></div>
-  </div>
-
-  <div class="tos-card animate" style="margin-bottom: 16px;">
-    Commissions are limited to <strong>5 slots</strong>. Commission multiple songs and receive a discount on the combined total.
-  </div>
-
-  <table class="discount-table animate">
-    <thead>
-      <tr>
-        <th>Songs</th>
-        <th>Discount</th>
-        <th>Notes</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr><td>1 song</td><td class="full disc">Full price</td><td style="color:var(--muted);">No discount</td></tr>
-      <tr><td>2 songs</td><td class="disc">15% off</td><td style="color:var(--muted);">Applied to combined total</td></tr>
-      <tr><td>3 songs</td><td class="disc">20% off</td><td style="color:var(--muted);">Applied to combined total</td></tr>
-      <tr><td>4 songs</td><td class="disc">25% off</td><td style="color:var(--muted);">Applied to combined total</td></tr>
-      <tr><td>5 songs</td><td class="disc">30% off</td><td style="color:var(--muted);">Applied to combined total</td></tr>
-    </tbody>
-  </table>
-
-  <div class="example-box animate" style="margin-top: 16px;">
-    <div class="example-label">Bulk Example — 5 Songs</div>
-    <div class="example-formula">
-      €35 + €40 + €45 + €50 + €55 = <span class="formula-highlight">€225</span><br>
-      30% discount applied → <strong style="color:var(--accent); font-size:1.1rem;">€157.50</strong>
-    </div>
-  </div>
-
-  <!-- KIT ONLY -->
-  <div class="section-header animate">
-    <span class="section-label">04 — Kit Only Pricing</span>
-    <div class="section-line"></div>
-  </div>
-
-  <div class="price-grid animate" style="grid-template-columns: 1fr;">
-    <div class="price-card">
-      <div class="price-label">Any Kit — Custom to You</div>
-      <div class="price-amount">€10</div>
-      <div class="price-desc">Any kit you want made — custom to only you, other drummer's kits, recreations, and more.</div>
-    </div>
-  </div>
-
-  <div class="tos-card animate" style="margin-top: 16px;">
-    Kits also follow the same <strong>bulk discount structure</strong> — up to 5 slots, with the same 15/20/25/30% tiers applied to the combined total.
-  </div>
-
-  <div class="example-box animate" style="margin-top: 16px;">
-    <div class="example-label">Kit Bulk Example — 5 Kits</div>
-    <div class="example-formula">
-      €10 × 5 = <span class="formula-highlight">€50</span><br>
-      30% discount → <strong style="color:var(--accent); font-size:1.1rem;">€35</strong>
-    </div>
-  </div>
-
   <!-- SCHEDULE -->
   <div class="section-header animate">
-    <span class="section-label">05 — Weekly Schedule</span>
+    <span class="section-label">03 — Weekly Schedule</span>
     <div class="section-line"></div>
   </div>
 
@@ -971,7 +1121,7 @@
 
   <!-- PORTFOLIO -->
   <div class="section-header animate">
-    <span class="section-label">06 — Portfolio</span>
+    <span class="section-label">04 — Portfolio</span>
     <div class="section-line"></div>
   </div>
 
@@ -1096,6 +1246,61 @@
 </div>
 
 <script>
+  // Custom smooth scroll
+
+
+  function smoothScrollTo(target) {
+    const start = window.scrollY;
+    const end = target.getBoundingClientRect().top + window.scrollY;
+    const duration = 900;
+    let startTime = null;
+
+    function easeInOutCubic(t) {
+      return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    }
+
+    function step(timestamp) {
+      if (!startTime) startTime = timestamp;
+      const elapsed = timestamp - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      window.scrollTo(0, start + (end - start) * easeInOutCubic(progress));
+      if (progress < 1) requestAnimationFrame(step);
+    }
+
+    requestAnimationFrame(step);
+  }
+
+  function smoothScrollTo(target) {
+    const start = window.scrollY;
+    const end = target.getBoundingClientRect().top + start;
+    const duration = 900;
+    const startTime = performance.now();
+    function easeInOutCubic(t) {
+      return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2,3)/2;
+    }
+    function step(now) {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      window.scrollTo(0, start + (end - start) * easeInOutCubic(progress));
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  // Fade-out animation on dropdown close
+  document.querySelectorAll('details.example-dropdown').forEach(el => {
+    el.addEventListener('click', (e) => {
+      if (!el.open) return;
+      e.preventDefault();
+      const formula = el.querySelector('.example-formula');
+      formula.classList.add('closing');
+      setTimeout(() => {
+        formula.classList.remove('closing');
+        el.removeAttribute('open');
+      }, 280);
+    });
+  });
+
   // Scroll-triggered animations
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
