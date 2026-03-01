@@ -999,6 +999,47 @@
     footer { padding: 30px 24px; flex-direction: column; gap: 12px; }
     .hero-badge { display: none; }
   }
+
+  /* BACK TO TOP */
+  .back-to-top {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    width: 44px;
+    height: 44px;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--accent);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2px;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(10px);
+    transition: opacity 0.3s, transform 0.3s, border-color 0.2s, background 0.2s;
+    z-index: 800;
+  }
+
+  .back-to-top.visible {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateY(0);
+  }
+
+  .back-to-top:hover {
+    background: rgba(245,200,66,0.08);
+    border-color: var(--accent);
+  }
+
+  .back-to-top svg {
+    transition: transform 0.2s;
+  }
+
+  .back-to-top:hover svg {
+    transform: translateY(-2px);
+  }
 </style>
 </head>
 <body>
@@ -1447,6 +1488,30 @@
   document.getElementById('lbClose').addEventListener('click', () => lb.classList.remove('open'));
   lb.addEventListener('click', (e) => { if (e.target === lb) lb.classList.remove('open'); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') lb.classList.remove('open'); });
+
 </script>
+
+  <button class="back-to-top" id="backToTop" aria-label="Back to top" onclick="smoothScrollTo(document.querySelector('.hero'))">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="18 15 12 9 6 15"/>
+    </svg>
+  </button>
+  <script>
+  // Back to top visibility + footer avoidance
+  (function() {
+    const btn = document.getElementById('backToTop');
+    const tos = document.getElementById('sec-tos');
+    const footer = document.querySelector('footer');
+    function update() {
+      const tosTrigger = tos ? tos.getBoundingClientRect().top + window.scrollY : 600;
+      btn.classList.toggle('visible', window.scrollY >= tosTrigger);
+      const footerRect = footer.getBoundingClientRect();
+      const overlap = window.innerHeight - footerRect.top;
+      btn.style.bottom = overlap > 0 ? (overlap + 16) + 'px' : '32px';
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+  })();
+  </script>
 </body>
 </html>
