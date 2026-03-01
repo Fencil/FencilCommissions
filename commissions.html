@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fencil Commissions</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0b;
+    --bg2: #111114;
+    --bg3: #1a1a1f;
+    --accent: #f5c842;
+    --accent2: #e8503a;
+    --text: #e8e6df;
+    --muted: #7a7870;
+    --border: rgba(245, 200, 66, 0.15);
+    --card-bg: rgba(255,255,255,0.03);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* DISCORD BUTTON */
+  .hero-btns {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 28px;
+  }
+
+  .hero-discord-btn {
+    display: inline-block;
+    padding: 13px 28px;
+    background: transparent;
+    border: 1px solid #5865F2;
+    color: #5865F2;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s, transform 0.2s;
+    animation: fadeUp 0.6s 0.35s ease both;
+  }
+  .hero-discord-btn:hover {
+    background: #5865F2;
+    color: #fff;
+    transform: translateY(-2px);
+  }
+
+  .discord-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 16px;
+    padding: 12px 24px;
+    background: #5865F2;
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    border-radius: 3px;
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px rgba(88,101,242,0.25);
+  }
+  .discord-btn:hover {
+    background: #4752c4;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 28px rgba(88,101,242,0.4);
+  }
+
+  /* HERO KO-FI */
+  .hero-kofi-btn {
+    display: inline-block;
+    margin-top: 0;
+    padding: 13px 28px;
+    background: transparent;
+    border: 1px solid #FF5E5B;
+    color: #FF5E5B;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s, transform 0.2s;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+  .hero-kofi-btn:hover {
+    background: #FF5E5B;
+    color: #fff;
+    transform: translateY(-2px);
+  }
+
+  /* Grain overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    opacity: 0.4;
+    pointer-events: none;
+    z-index: 1000;
+  }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 60px 60px;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(245,200,66,0.08) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -100px; left: -100px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(232,80,58,0.06) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .hero-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-tag::before {
+    content: '';
+    display: block;
+    width: 32px; height: 1px;
+    background: var(--accent);
+  }
+
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(72px, 12vw, 160px);
+    line-height: 0.9;
+    letter-spacing: 0.01em;
+    color: var(--text);
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+
+  .hero-title span {
+    color: var(--accent);
+    display: block;
+  }
+
+  .hero-sub {
+    margin-top: 32px;
+    max-width: 500px;
+    font-size: 1rem;
+    color: var(--muted);
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+
+  .hero-badge {
+    position: absolute;
+    right: 60px;
+    bottom: 60px;
+    width: 140px; height: 140px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    animation: spin 20s linear infinite, fadeUp 0.6s 0.3s ease both;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  .badge-inner {
+    animation: spin 20s linear infinite reverse;
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  /* MAIN CONTENT */
+  main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 40px 120px;
+  }
+
+  /* SECTION HEADER */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 80px 0 32px;
+  }
+
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* TOS CARD */
+  .tos-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    padding: 36px 40px;
+    border-radius: 2px;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .tos-card p {
+    margin-bottom: 14px;
+    color: var(--text);
+    font-size: 0.95rem;
+  }
+  .tos-card p:last-child { margin-bottom: 0; }
+
+  .tos-card strong { color: var(--accent); font-weight: 600; }
+  .tos-card em { color: var(--muted); font-style: italic; }
+  
+  .tos-link {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(245,200,66,0.3);
+    transition: border-color 0.2s;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    word-break: break-all;
+  }
+  .tos-link:hover { border-color: var(--accent); }
+
+  /* PRICING GRID */
+  .price-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .price-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    padding: 32px;
+    border-radius: 2px;
+    transition: border-color 0.3s, transform 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .price-card:hover {
+    border-color: rgba(245,200,66,0.4);
+    transform: translateY(-3px);
+  }
+  .price-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+  }
+
+  .price-card.featured::before {
+    background: linear-gradient(90deg, var(--accent2), transparent);
+  }
+
+  .price-card .price-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+
+  .price-card .price-amount {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 52px;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .price-card.featured .price-amount { color: var(--accent2); }
+
+  .price-card .price-desc {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* PRICING LIST */
+  .price-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 0;
+  }
+
+  .price-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px 20px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .price-list li::before {
+    content: '→';
+    color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* EXAMPLE BOX */
+  .example-box {
+    background: rgba(245, 200, 66, 0.04);
+    border: 1px dashed rgba(245,200,66,0.3);
+    padding: 28px 32px;
+    border-radius: 2px;
+    margin-top: 20px;
+  }
+
+  .example-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  .example-formula {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.88rem;
+    color: var(--text);
+    line-height: 2;
+  }
+
+  .formula-highlight {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  /* DISCOUNT TABLE */
+  .discount-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+  }
+
+  .discount-table th {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: left;
+    padding: 12px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .discount-table td {
+    padding: 14px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    color: var(--text);
+  }
+
+  .discount-table tr:hover td {
+    background: rgba(245,200,66,0.03);
+  }
+
+  .discount-table .disc {
+    color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+  }
+
+  .discount-table .full { color: var(--muted); }
+
+  /* SCHEDULE */
+  .schedule-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+  }
+
+  .day-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 20px 8px;
+    border: 1px solid var(--border);
+    background: var(--card-bg);
+    border-radius: 2px;
+    transition: transform 0.2s;
+  }
+  .day-card:hover { transform: translateY(-2px); }
+
+  .day-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .day-status {
+    font-size: 1.5rem;
+    line-height: 1;
+  }
+
+  .day-card.available {
+    border-color: rgba(80, 200, 100, 0.25);
+    background: rgba(80, 200, 100, 0.04);
+  }
+
+  .day-card.available .day-name { color: #6be083; }
+
+  .day-card.unavailable {
+    border-color: rgba(232, 80, 58, 0.2);
+    background: rgba(232, 80, 58, 0.03);
+  }
+
+  /* KIT SHOWCASE */
+  .kit-showcase {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .kit-img-wrap {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    background: #000;
+    cursor: zoom-in;
+  }
+
+  .kit-img-wrap::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 2px solid transparent;
+    border-radius: 2px;
+    transition: border-color 0.3s;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .kit-img-wrap:hover::before {
+    border-color: var(--accent);
+  }
+
+  .kit-img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+    aspect-ratio: 16/9;
+    transition: transform 0.5s ease, filter 0.3s ease;
+    filter: brightness(0.9) saturate(1.1);
+  }
+
+  .kit-img-wrap:hover .kit-img {
+    transform: scale(1.04);
+    filter: brightness(1.05) saturate(1.2);
+  }
+
+  .kit-img-label {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 24px 16px 12px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.75));
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    z-index: 1;
+  }
+
+  /* Lightbox */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.92);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    cursor: zoom-out;
+    padding: 20px;
+  }
+  .lightbox.open { display: flex; }
+  .lightbox img {
+    max-width: 100%;
+    max-height: 90vh;
+    object-fit: contain;
+    border: 1px solid var(--border);
+  }
+  .lightbox-close {
+    position: absolute;
+    top: 20px; right: 28px;
+    font-size: 2rem;
+    color: var(--muted);
+    cursor: pointer;
+    font-family: 'JetBrains Mono', monospace;
+    transition: color 0.2s;
+  }
+  .lightbox-close:hover { color: var(--accent); }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 60px 0;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 40px 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--muted);
+    font-size: 0.8rem;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.05em;
+  }
+
+  footer a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  /* KO-FI BUTTON */
+  .kofi-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 16px;
+    padding: 12px 24px;
+    background: #FF5E5B;
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    border-radius: 3px;
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px rgba(255,94,91,0.25);
+  }
+  .kofi-btn:hover {
+    background: #ff4542;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 28px rgba(255,94,91,0.4);
+  }
+
+  /* PORTFOLIO */
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .portfolio-entry {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 22px 24px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    transition: border-color 0.3s, transform 0.25s;
+  }
+
+  .portfolio-entry:hover {
+    border-color: rgba(245,200,66,0.3);
+    transform: translateY(-2px);
+  }
+
+  .featured-entry {
+    border-left: 3px solid var(--accent);
+    background: rgba(245,200,66,0.03);
+  }
+
+  .portfolio-title {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text);
+    letter-spacing: 0.01em;
+  }
+
+  .featured-entry .portfolio-title {
+    color: var(--accent);
+  }
+
+  .portfolio-links {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .port-btn {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    padding: 6px 14px;
+    border-radius: 2px;
+    transition: background 0.2s, color 0.2s;
+    white-space: nowrap;
+  }
+
+  .port-btn-yt {
+    background: rgba(232,80,58,0.12);
+    border: 1px solid rgba(232,80,58,0.35);
+    color: #e8503a;
+  }
+  .port-btn-yt:hover {
+    background: rgba(232,80,58,0.25);
+  }
+
+  .port-btn-db {
+    background: rgba(245,200,66,0.08);
+    border: 1px solid rgba(245,200,66,0.3);
+    color: var(--accent);
+  }
+  .port-btn-db:hover {
+    background: rgba(245,200,66,0.18);
+  }
+
+  .portfolio-all {
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  .portfolio-all-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .portfolio-all-link:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .animate {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .animate.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Full-width sections */
+  .full-section {
+    background: var(--bg2);
+    padding: 80px 60px;
+  }
+
+  .note-box {
+    background: rgba(232,80,58,0.06);
+    border: 1px solid rgba(232,80,58,0.25);
+    border-left: 3px solid var(--accent2);
+    padding: 20px 24px;
+    font-size: 0.88rem;
+    color: var(--text);
+    margin-top: 20px;
+    border-radius: 2px;
+  }
+
+  @media (max-width: 700px) {
+    .hero { padding: 60px 24px 40px; }
+    main { padding: 0 24px 80px; }
+    .price-grid { grid-template-columns: 1fr; }
+    .schedule-grid { grid-template-columns: repeat(4, 1fr); }
+    .kit-showcase { grid-template-columns: 1fr; }
+    .portfolio-grid { grid-template-columns: 1fr; }
+    footer { padding: 30px 24px; flex-direction: column; gap: 12px; }
+    .hero-badge { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-tag">Paradiddle Chart Commissions</div>
+  <h1 class="hero-title">
+    FENCIL<span>COMMISSIONS</span>
+  </h1>
+  <div class="hero-btns">
+    <a href="https://ko-fi.com/fencil/commissions" target="_blank" class="hero-kofi-btn">
+      Commission on Ko-fi →
+    </a>
+    <a href="https://discord.com/invite/Y3Pz2MZwe3" target="_blank" class="hero-discord-btn">
+      Join Discord →
+    </a>
+  </div>
+
+
+</section>
+
+<!-- MAIN -->
+<main>
+
+  <!-- TOS -->
+  <div class="section-header animate">
+    <span class="section-label">01 — Terms of Service</span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="tos-card animate">
+    <p><strong>Average time to complete a commission: 1–3 weeks</strong> depending on real life circumstances and complexity of the chart.</p>
+    <p><strong>This is for 1 chart per commission slot.</strong></p>
+    <p><strong>Kit only commissions</strong> will take <strong>up to 1 week</strong> to complete per kit, depending on complexity and real life circumstances.</p>
+    <p><em>If there are any drum cams, videos, or covers you want me to follow for the song(s) you commissioned, please send them in the ticket.</em></p>
+    <p>I will send updates as soon as I have them and tell you how far along I am — when I start working, when I finish, or if something arises that stops me from working. You'll be the first to know.</p>
+    <p>I'll also send you the song(s) as soon as they're done so you can playtest and tell me what you like and dislike. Any mistakes I will fix before or after completion, for free.</p>
+    <p style="margin-top: 20px;"><strong>Payments are taken on Ko-fi</strong> (supports more payment methods). The payment page will be sent in your commission ticket along with this ToS.</p>
+    <a href="https://ko-fi.com/fencil/commissions" target="_blank" class="kofi-btn">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" style="flex-shrink:0"><path d="M23.881 8.948c-.773-4.085-4.859-4.593-4.859-4.593H.723c-.604 0-.679.798-.679.798s-.082 9.64 0 10.708c.164 2.132 1.508 2.38 1.508 2.38h6.105c1.17 1.294 2.421 1.985 2.421 1.985.615.26 1.358.26 1.358.26s.743 0 1.358-.26c0 0 1.251-.691 2.421-1.985h1.369c0 0 4.547-.164 4.547-5.548 0-.274-.016-.517-.045-.745.407-.144.749-.42 1.021-.866.812-1.329.812-3.336.812-3.336h.001zm-16.01 4.539a.813.813 0 01-.813.813H5.245V8.948h1.813c.449 0 .813.364.813.813v3.726zm5.326 0a.813.813 0 01-.813.813H9.571V8.948h2.813v4.539zm5.326-3.726a.813.813 0 00-.813-.813h-1.813v4.539h1.813a.813.813 0 00.813-.813V9.761z"/></svg>
+      Commission on Ko-fi
+    </a>
+    <a href="https://discord.com/invite/Y3Pz2MZwe3" target="_blank" class="discord-btn" style="margin-top: 10px;">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" style="flex-shrink:0"><path d="M20.317 4.492c-1.53-.69-3.17-1.2-4.885-1.49a.075.075 0 0 0-.079.036c-.21.369-.444.85-.608 1.23a18.566 18.566 0 0 0-5.487 0 12.36 12.36 0 0 0-.617-1.23A.077.077 0 0 0 8.562 3c-1.714.29-3.354.8-4.885 1.491a.07.07 0 0 0-.032.027C.533 9.093-.32 13.555.099 17.961a.08.08 0 0 0 .031.055 20.03 20.03 0 0 0 5.993 2.98.078.078 0 0 0 .084-.026c.462-.62.874-1.275 1.226-1.963a.074.074 0 0 0-.041-.104 13.201 13.201 0 0 1-1.872-.878.075.075 0 0 1-.008-.125c.126-.093.252-.19.372-.287a.075.075 0 0 1 .078-.01c3.927 1.764 8.18 1.764 12.061 0a.075.075 0 0 1 .079.009c.12.098.245.195.372.288a.075.075 0 0 1-.006.125c-.598.344-1.22.635-1.873.877a.075.075 0 0 0-.041.105c.36.687.772 1.341 1.225 1.962a.077.077 0 0 0 .084.028 19.963 19.963 0 0 0 6.002-2.981.076.076 0 0 0 .032-.054c.5-5.094-.838-9.52-3.549-13.442a.06.06 0 0 0-.031-.028z"/></svg>
+      Join the Discord
+    </a>
+    <p style="margin-top: 16px;">For available payment methods on Ko-fi, see:<br>
+      <a class="tos-link" href="https://help.ko-fi.com/hc/en-us/articles/24482435253661-What-payment-methods-are-available-on-Ko-fi#what-payment-methods-are-available-on-ko-fi--0-0" target="_blank">
+        ko-fi.com — Payment Methods →
+      </a>
+    </p>
+  </div>
+
+  <!-- CHART PRICING -->
+  <div class="section-header animate">
+    <span class="section-label">02 — Chart Pricing</span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="price-grid animate">
+    <div class="price-card">
+      <div class="price-label">Custom Kit Base</div>
+      <div class="price-amount">€30</div>
+      <div class="price-desc">Includes drum kit of your choice, or whatever the song was made with.</div>
+    </div>
+    <div class="price-card featured">
+      <div class="price-label">Basic Kit Base</div>
+      <div class="price-amount">€20</div>
+      <div class="price-desc">Comes with a standard basic drum kit included.</div>
+    </div>
+  </div>
+
+  <ul class="price-list animate" style="margin-top: 16px;">
+    <li><strong>Complexity surcharge:</strong>&nbsp; 1–100% extra, calculated as a % of (base + length price)</li>
+    <li><strong>Song length:</strong>&nbsp; €1 for every 30 seconds of the song</li>
+    <li><strong>Extra difficulties:</strong>&nbsp; €2 per additional difficulty on the chart</li>
+  </ul>
+
+  <div class="example-box animate">
+    <div class="example-label">Pricing Example</div>
+    <div class="example-formula">
+      Custom Kit + 6 min song + 50% complexity<br><br>
+      Base: <span class="formula-highlight">€30</span><br>
+      Length: <span class="formula-highlight">6 min × €2 = €12</span> &nbsp;&nbsp;<em style="color:var(--muted); font-size:0.78rem;">(€1 per 30s = €2/min)</em><br>
+      Subtotal: <span class="formula-highlight">30 + 12 = €42</span><br>
+      Complexity (50% of 42): <span class="formula-highlight">+ €21</span><br>
+      ─────────────────────<br>
+      <strong style="color:var(--accent); font-size:1.1rem;">Total: €63</strong>
+    </div>
+  </div>
+
+  <!-- BASIC KIT SHOWCASE -->
+  <div class="section-header animate" style="margin-top: 60px;">
+    <span class="section-label">Basic Kit — Included with €20 Base</span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="tos-card animate" style="margin-bottom: 20px;">
+    Every <strong>€20 base commission</strong> comes with this basic kit included — a fully detailed, ornate drum setup ready to play.
+  </div>
+
+  <div class="kit-showcase animate">
+    <div class="kit-img-wrap">
+      <img src="kit1.png" alt="Basic Kit — Stage View" class="kit-img" />
+      <div class="kit-img-label">Stage View</div>
+    </div>
+    <div class="kit-img-wrap">
+      <img src="kit2.png" alt="Basic Kit — Overhead View" class="kit-img" />
+      <div class="kit-img-label">Overhead View</div>
+    </div>
+  </div>
+
+  <!-- BULK DISCOUNTS (CHARTS) -->
+  <div class="section-header animate">
+    <span class="section-label">03 — Bulk Discounts (Charts)</span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="tos-card animate" style="margin-bottom: 16px;">
+    Commissions are limited to <strong>5 slots</strong>. Commission multiple songs and receive a discount on the combined total.
+  </div>
+
+  <table class="discount-table animate">
+    <thead>
+      <tr>
+        <th>Songs</th>
+        <th>Discount</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>1 song</td><td class="full disc">Full price</td><td style="color:var(--muted);">No discount</td></tr>
+      <tr><td>2 songs</td><td class="disc">15% off</td><td style="color:var(--muted);">Applied to combined total</td></tr>
+      <tr><td>3 songs</td><td class="disc">20% off</td><td style="color:var(--muted);">Applied to combined total</td></tr>
+      <tr><td>4 songs</td><td class="disc">25% off</td><td style="color:var(--muted);">Applied to combined total</td></tr>
+      <tr><td>5 songs</td><td class="disc">30% off</td><td style="color:var(--muted);">Applied to combined total</td></tr>
+    </tbody>
+  </table>
+
+  <div class="example-box animate" style="margin-top: 16px;">
+    <div class="example-label">Bulk Example — 5 Songs</div>
+    <div class="example-formula">
+      €35 + €40 + €45 + €50 + €55 = <span class="formula-highlight">€225</span><br>
+      30% discount applied → <strong style="color:var(--accent); font-size:1.1rem;">€157.50</strong>
+    </div>
+  </div>
+
+  <!-- KIT ONLY -->
+  <div class="section-header animate">
+    <span class="section-label">04 — Kit Only Pricing</span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="price-grid animate" style="grid-template-columns: 1fr;">
+    <div class="price-card">
+      <div class="price-label">Any Kit — Custom to You</div>
+      <div class="price-amount">€10</div>
+      <div class="price-desc">Any kit you want made — custom to only you, other drummer's kits, recreations, and more.</div>
+    </div>
+  </div>
+
+  <div class="tos-card animate" style="margin-top: 16px;">
+    Kits also follow the same <strong>bulk discount structure</strong> — up to 5 slots, with the same 15/20/25/30% tiers applied to the combined total.
+  </div>
+
+  <div class="example-box animate" style="margin-top: 16px;">
+    <div class="example-label">Kit Bulk Example — 5 Kits</div>
+    <div class="example-formula">
+      €10 × 5 = <span class="formula-highlight">€50</span><br>
+      30% discount → <strong style="color:var(--accent); font-size:1.1rem;">€35</strong>
+    </div>
+  </div>
+
+  <!-- SCHEDULE -->
+  <div class="section-header animate">
+    <span class="section-label">05 — Weekly Schedule</span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="schedule-grid animate">
+    <div class="day-card available">
+      <span class="day-name">Mon</span>
+      <span class="day-status">🟩</span>
+    </div>
+    <div class="day-card unavailable">
+      <span class="day-name">Tue</span>
+      <span class="day-status">🟥</span>
+    </div>
+    <div class="day-card unavailable">
+      <span class="day-name">Wed</span>
+      <span class="day-status">🟥</span>
+    </div>
+    <div class="day-card unavailable">
+      <span class="day-name">Thu</span>
+      <span class="day-status">🟥</span>
+    </div>
+    <div class="day-card available">
+      <span class="day-name">Fri</span>
+      <span class="day-status">🟩</span>
+    </div>
+    <div class="day-card available">
+      <span class="day-name">Sat</span>
+      <span class="day-status">🟩</span>
+    </div>
+    <div class="day-card available">
+      <span class="day-name">Sun</span>
+      <span class="day-status">🟩</span>
+    </div>
+  </div>
+
+  <div class="note-box animate" style="margin-top: 16px;">
+    🟩 Available &nbsp;/&nbsp; 🟥 Unavailable. Schedule may shift due to real life circumstances — you'll always be notified of any delays.
+  </div>
+
+  <!-- PORTFOLIO -->
+  <div class="section-header animate">
+    <span class="section-label">06 — Portfolio</span>
+    <div class="section-line"></div>
+  </div>
+
+  <!-- KIT RECREATIONS -->
+  <div class="tos-card animate" style="margin-bottom: 20px;">
+    A sample of <strong>custom kit recreations</strong> — including Mike Portnoy's iconic kits faithfully rebuilt in-game.
+  </div>
+
+  <div class="kit-showcase animate" style="margin-bottom: 12px;">
+    <div class="kit-img-wrap">
+      <img src="portnoy1.png" alt="Mike Portnoy Dream Monster Kit Recreation" class="kit-img" style="aspect-ratio: 16/9;" />
+      <div class="kit-img-label">Mike Portnoy — Dream Monster Kit (Recreation)</div>
+    </div>
+    <div class="kit-img-wrap">
+      <img src="portnoy2.png" alt="Mike Portnoy Drumeo Kit Recreation" class="kit-img" style="aspect-ratio: 16/9;" />
+      <div class="kit-img-label">Mike Portnoy — Drumeo Kit (Recreation)</div>
+    </div>
+  </div>
+
+  <div class="portfolio-grid animate">
+
+    <div class="portfolio-entry featured-entry">
+      <div class="portfolio-title">The Shadow Man Incident</div>
+      <div class="portfolio-links">
+        <a href="https://youtu.be/6Sb7T6q3YZ0" target="_blank" class="port-btn port-btn-yt">▶ Chart Video</a>
+        <a href="https://paradb.net/map/M0979E5" target="_blank" class="port-btn port-btn-db">↗ Chart</a>
+      </div>
+    </div>
+
+    <div class="portfolio-entry featured-entry">
+      <div class="portfolio-title">Ticks &amp; Leeches</div>
+      <div class="portfolio-links">
+        <a href="https://youtu.be/d2kqfGswUEA" target="_blank" class="port-btn port-btn-yt">▶ Chart Video</a>
+        <a href="https://paradb.net/map/M5EDF9B" target="_blank" class="port-btn port-btn-db">↗ Chart</a>
+      </div>
+    </div>
+
+    <div class="portfolio-entry featured-entry">
+      <div class="portfolio-title">6:00</div>
+      <div class="portfolio-links">
+        <a href="https://youtu.be/dKQliTNQupU" target="_blank" class="port-btn port-btn-yt">▶ Chart Video</a>
+        <a href="https://paradb.net/map/ME2A1E8" target="_blank" class="port-btn port-btn-db">↗ Chart</a>
+      </div>
+    </div>
+
+    <div class="portfolio-entry">
+      <div class="portfolio-title">Dashboard</div>
+      <div class="portfolio-links">
+        <a href="https://youtu.be/gcULbHjf-ZY" target="_blank" class="port-btn port-btn-yt">▶ Chart Video</a>
+        <a href="https://paradb.net/map/M851C3E" target="_blank" class="port-btn port-btn-db">↗ Chart</a>
+      </div>
+    </div>
+
+    <div class="portfolio-entry">
+      <div class="portfolio-title">Aoi, Koi, Daidaiiro No Hi</div>
+      <div class="portfolio-links">
+        <a href="https://youtu.be/nKJOiDIeaTs" target="_blank" class="port-btn port-btn-yt">▶ Chart Video</a>
+        <a href="https://paradb.net/map/MA05D70" target="_blank" class="port-btn port-btn-db">↗ Chart</a>
+      </div>
+    </div>
+
+    <div class="portfolio-entry">
+      <div class="portfolio-title">Low Lands</div>
+      <div class="portfolio-links">
+        <a href="https://youtu.be/rMeeplOieoU" target="_blank" class="port-btn port-btn-yt">▶ Chart Video</a>
+        <a href="https://paradb.net/map/M088F53" target="_blank" class="port-btn port-btn-db">↗ Chart</a>
+      </div>
+    </div>
+
+    <div class="portfolio-entry">
+      <div class="portfolio-title">Mouth of Kala</div>
+      <div class="portfolio-links">
+        <a href="https://youtu.be/_jk1IbyDboA" target="_blank" class="port-btn port-btn-yt">▶ Chart Video</a>
+        <a href="https://paradb.net/map/MEC13E0" target="_blank" class="port-btn port-btn-db">↗ Chart</a>
+      </div>
+    </div>
+
+    <div class="portfolio-entry">
+      <div class="portfolio-title">Flood</div>
+      <div class="portfolio-links">
+        <a href="https://youtu.be/o_M3j-NkerQ" target="_blank" class="port-btn port-btn-yt">▶ Chart Video</a>
+        <a href="https://paradb.net/map/MF2ED23" target="_blank" class="port-btn port-btn-db">↗ Chart</a>
+      </div>
+    </div>
+
+    <div class="portfolio-entry">
+      <div class="portfolio-title">Pull Me Under</div>
+      <div class="portfolio-links">
+        <a href="https://youtu.be/vSHhwPXiGZ8" target="_blank" class="port-btn port-btn-yt">▶ Chart Video</a>
+        <a href="https://paradb.net/map/M625E9C" target="_blank" class="port-btn port-btn-db">↗ Chart</a>
+      </div>
+    </div>
+
+    <div class="portfolio-entry">
+      <div class="portfolio-title">Almost Easy</div>
+      <div class="portfolio-links">
+        <a href="https://youtu.be/ZhWb9ORGYQY" target="_blank" class="port-btn port-btn-yt">▶ Chart Video</a>
+        <a href="https://paradb.net/map/M447319" target="_blank" class="port-btn port-btn-db">↗ Chart</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="portfolio-all animate">
+    <a href="https://paradb.net/?q=Fencil" target="_blank" class="portfolio-all-link">
+      View all Fencil charts on Paradb →
+    </a>
+  </div>
+
+</main>
+
+<footer>
+  <span>Fencil Commissions</span>
+  <span>Payment via <a href="https://ko-fi.com/fencil/commissions" target="_blank">Ko-fi — Fencil →</a></span>
+  <span><a href="https://discord.com/invite/Y3Pz2MZwe3" target="_blank">Discord →</a></span>
+</footer>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <span class="lightbox-close" id="lbClose">✕</span>
+  <img id="lbImg" src="" alt="Kit preview" />
+</div>
+
+<script>
+  // Scroll-triggered animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), 60);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.animate').forEach(el => observer.observe(el));
+
+  // Lightbox
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lbImg');
+  document.querySelectorAll('.kit-img-wrap').forEach(wrap => {
+    wrap.addEventListener('click', () => {
+      lbImg.src = wrap.querySelector('img').src;
+      lb.classList.add('open');
+    });
+  });
+  document.getElementById('lbClose').addEventListener('click', () => lb.classList.remove('open'));
+  lb.addEventListener('click', (e) => { if (e.target === lb) lb.classList.remove('open'); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') lb.classList.remove('open'); });
+</script>
+</body>
+</html>
