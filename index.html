@@ -13,7 +13,6 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fencil Commissions</title>
-<link rel="icon" type="image/x-icon" href="media/favicon.png">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -113,6 +112,14 @@
     color: #5865F2;
   }
   .nav-discord:hover { background: #5865F2; color: #fff; }
+
+  .nav-home {
+    border: 1px solid var(--border);
+    color: var(--muted);
+    margin-left: 0;
+    margin-right: 6px;
+  }
+  .nav-home:hover { border-color: var(--accent); color: var(--accent); background: rgba(245,200,66,0.07); }
 
   @media (max-width: 700px) {
     .navbar { padding: 0 20px; }
@@ -1049,6 +1056,7 @@
 <nav class="navbar" id="navbar">
   <div class="nav-logo">Fencil</div>
   <div class="nav-links">
+    <a class="nav-btn nav-home" href="https://fencil.github.io/">← Home</a>
     <button class="nav-link" onclick="smoothScrollTo(document.getElementById('sec-tos'))">ToS</button>
     <button class="nav-link" onclick="smoothScrollTo(document.getElementById('sec-pricing'))">Pricing</button>
     <button class="nav-link" onclick="smoothScrollTo(document.getElementById('sec-schedule'))">Schedule</button>
