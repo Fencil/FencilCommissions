@@ -393,32 +393,18 @@
   .price-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto auto;
-    gap: 0 16px;
+    gap: 16px;
   }
 
   .price-card {
     background: var(--card-bg);
     border: 1px solid var(--border);
+    padding: 32px;
     border-radius: 2px;
     transition: border-color 0.3s, transform 0.3s;
     position: relative;
     overflow: hidden;
-    /* subgrid: each card spans all 3 row tracks */
-    grid-row: span 3;
-    display: grid;
-    grid-template-rows: subgrid;
-    padding: 0;
   }
-
-  .price-card .price-label,
-  .price-card .price-amount,
-  .price-card .price-desc {
-    padding: 0 32px;
-  }
-
-  .price-card .price-label { padding-top: 32px; }
-  .price-card .price-desc  { padding-bottom: 32px; }
   .price-card:hover {
     border-color: rgba(245,200,66,0.4);
     transform: translateY(-3px);
@@ -449,7 +435,7 @@
     font-size: 34px;
     color: var(--accent);
     line-height: 1;
-    padding-bottom: 8px;
+    margin-bottom: 8px;
   }
   .price-card.featured .price-amount { color: var(--accent2); }
 
@@ -1475,10 +1461,11 @@
     navLinks.forEach((l, i) => l.classList.toggle('active', i === current));
   });
 
-  // Fade-out animation on dropdown close
+  // Fade-out animation on dropdown close — only trigger from summary click
   document.querySelectorAll('details.example-dropdown').forEach(el => {
-    el.addEventListener('click', (e) => {
-      if (!el.open) return;
+    const summary = el.querySelector('summary');
+    summary.addEventListener('click', (e) => {
+      if (!el.open) return; // opening — let browser handle it
       e.preventDefault();
       const formula = el.querySelector('.example-formula');
       formula.classList.add('closing');
