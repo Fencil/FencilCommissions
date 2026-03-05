@@ -392,19 +392,31 @@
   /* PRICING GRID */
   .price-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto auto auto;
+    gap: 0 16px;
   }
 
   .price-card {
     background: var(--card-bg);
     border: 1px solid var(--border);
-    padding: 32px;
     border-radius: 2px;
     transition: border-color 0.3s, transform 0.3s;
     position: relative;
     overflow: hidden;
+    /* subgrid: stretch across all 3 row tracks */
+    grid-row: span 3;
+    display: grid;
+    grid-template-rows: subgrid;
   }
+
+  .price-card .price-label,
+  .price-card .price-amount,
+  .price-card .price-desc {
+    padding: 0 32px;
+  }
+  .price-card .price-label { padding-top: 32px; }
+  .price-card .price-desc  { padding-bottom: 32px; }
   .price-card:hover {
     border-color: rgba(245,200,66,0.4);
     transform: translateY(-3px);
@@ -427,7 +439,6 @@
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--muted);
-    margin-bottom: 12px;
   }
 
   .price-card .price-amount {
@@ -435,7 +446,6 @@
     font-size: 34px;
     color: var(--accent);
     line-height: 1;
-    margin-bottom: 8px;
   }
   .price-card.featured .price-amount { color: var(--accent2); }
 
@@ -1000,7 +1010,8 @@
   @media (max-width: 700px) {
     .hero { padding: 60px 24px 40px; }
     main { padding: 0 24px 80px; }
-    .price-grid { grid-template-columns: 1fr; }
+    .price-grid { grid-template-columns: 1fr; grid-template-rows: none; }
+    .price-card { grid-row: span 1; grid-template-rows: auto auto auto; }
     .schedule-grid { grid-template-columns: repeat(4, 1fr); }
     .kit-showcase { grid-template-columns: 1fr; }
     .portfolio-grid { grid-template-columns: 1fr; }
@@ -1127,7 +1138,7 @@
     <div class="section-line"></div>
   </div>
 
-  <div class="price-grid animate" style="grid-template-columns: repeat(3, 1fr);">
+  <div class="price-grid animate">
     <div class="price-card">
       <div class="price-label">BASE PRICE + CUSTOM KIT</div>
       <div class="price-amount">€25</div>
