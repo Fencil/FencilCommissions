@@ -122,9 +122,105 @@
   }
   .nav-home:hover { border-color: var(--accent); color: var(--accent); background: rgba(245,200,66,0.07); }
 
-  @media (max-width: 700px) {
+  /* HAMBURGER */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    z-index: 1001;
+  }
+  .hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--text);
+    border-radius: 2px;
+    transition: transform 0.3s, opacity 0.3s;
+    transform-origin: center;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* DRAWER */
+  .nav-drawer {
+    position: fixed;
+    top: 0; right: 0;
+    width: 260px;
+    height: 100vh;
+    background: rgba(10,10,11,0.97);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-left: 1px solid var(--border);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    padding: 80px 32px 40px;
+    gap: 8px;
+    transform: translateX(100%);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .nav-drawer.open { transform: translateX(0); }
+
+  .nav-drawer .drawer-link {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: left;
+    text-decoration: none;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    transition: color 0.2s;
+    display: block;
+  }
+  .nav-drawer .drawer-link:hover { color: var(--accent); }
+
+  .drawer-btns {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  .drawer-btns a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 10px 16px;
+    border-radius: 2px;
+    text-align: center;
+  }
+  .drawer-kofi  { border: 1px solid rgba(255,94,91,0.4); color: #FF5E5B; }
+  .drawer-discord { border: 1px solid rgba(88,101,242,0.4); color: #5865F2; }
+  .drawer-home  { border: 1px solid var(--border); color: var(--muted); }
+
+  /* OVERLAY */
+  .nav-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  .nav-overlay.open { opacity: 1; pointer-events: all; }
+
+  @media (max-width: 900px) {
     .navbar { padding: 0 20px; }
-    .nav-link { display: none; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
   }
 
   /* DISCORD BUTTON */
@@ -393,30 +489,20 @@
   .price-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: auto auto auto;
-    gap: 0 16px;
+    gap: 16px;
   }
 
   .price-card {
     background: var(--card-bg);
     border: 1px solid var(--border);
+    padding: 32px;
     border-radius: 2px;
     transition: border-color 0.3s, transform 0.3s;
     position: relative;
     overflow: hidden;
-    /* subgrid: stretch across all 3 row tracks */
-    grid-row: span 3;
-    display: grid;
-    grid-template-rows: subgrid;
+    display: flex;
+    flex-direction: column;
   }
-
-  .price-card .price-label,
-  .price-card .price-amount,
-  .price-card .price-desc {
-    padding: 0 32px;
-  }
-  .price-card .price-label { padding-top: 32px; }
-  .price-card .price-desc  { padding-bottom: 32px; }
   .price-card:hover {
     border-color: rgba(245,200,66,0.4);
     transform: translateY(-3px);
@@ -439,6 +525,11 @@
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--muted);
+    height: 2rem;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 14px;
   }
 
   .price-card .price-amount {
@@ -446,6 +537,7 @@
     font-size: 34px;
     color: var(--accent);
     line-height: 1;
+    margin-bottom: 10px;
   }
   .price-card.featured .price-amount { color: var(--accent2); }
 
@@ -1010,8 +1102,7 @@
   @media (max-width: 700px) {
     .hero { padding: 60px 24px 40px; }
     main { padding: 0 24px 80px; }
-    .price-grid { grid-template-columns: 1fr; grid-template-rows: none; }
-    .price-card { grid-row: span 1; grid-template-rows: auto auto auto; }
+    .price-grid { grid-template-columns: 1fr; }
     .schedule-grid { grid-template-columns: repeat(4, 1fr); }
     .kit-showcase { grid-template-columns: 1fr; }
     .portfolio-grid { grid-template-columns: 1fr; }
@@ -1076,7 +1167,23 @@
     <a class="nav-btn nav-kofi" href="https://ko-fi.com/fencil/commissions" target="_blank">Ko-fi</a>
     <a class="nav-btn nav-discord" href="https://discord.com/invite/Y3Pz2MZwe3" target="_blank">Discord</a>
   </div>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<div class="nav-overlay" id="navOverlay"></div>
+<div class="nav-drawer" id="navDrawer">
+  <button class="drawer-link" onclick="drawerNav('sec-tos')">ToS</button>
+  <button class="drawer-link" onclick="drawerNav('sec-pricing')">Pricing</button>
+  <button class="drawer-link" onclick="drawerNav('sec-schedule')">Schedule</button>
+  <button class="drawer-link" onclick="drawerNav('sec-portfolio')">Portfolio</button>
+  <div class="drawer-btns">
+    <a class="drawer-home" href="https://fencil.github.io/">← Home</a>
+    <a class="drawer-kofi" href="https://ko-fi.com/fencil/commissions" target="_blank">Ko-fi</a>
+    <a class="drawer-discord" href="https://discord.com/invite/Y3Pz2MZwe3" target="_blank">Discord</a>
+  </div>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -1510,6 +1617,27 @@
   document.getElementById('lbClose').addEventListener('click', () => lb.classList.remove('open'));
   lb.addEventListener('click', (e) => { if (e.target === lb) lb.classList.remove('open'); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') lb.classList.remove('open'); });
+
+
+  // Hamburger menu
+  const hamburger = document.getElementById('hamburger');
+  const navDrawer = document.getElementById('navDrawer');
+  const navOverlay = document.getElementById('navOverlay');
+
+  function toggleDrawer(open) {
+    hamburger.classList.toggle('open', open);
+    navDrawer.classList.toggle('open', open);
+    navOverlay.classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+
+  hamburger.addEventListener('click', () => toggleDrawer(!navDrawer.classList.contains('open')));
+  navOverlay.addEventListener('click', () => toggleDrawer(false));
+
+  function drawerNav(id) {
+    toggleDrawer(false);
+    setTimeout(() => smoothScrollTo(document.getElementById(id)), 300);
+  }
 
 </script>
 
