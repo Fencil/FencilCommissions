@@ -826,6 +826,20 @@
   }
 
   /* KIT SHOWCASE */
+  .kit-showcase-3 {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .kit-img-wrap--full {
+    grid-column: 1 / -1;
+    max-height: 340px;
+  }
+
+  .kit-img-wrap--full .kit-img {
+    aspect-ratio: 21/9;
+    object-position: center 30%;
+  }
+
   .kit-showcase {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -1104,7 +1118,21 @@
     main { padding: 0 24px 80px; }
     .price-grid { grid-template-columns: 1fr; }
     .schedule-grid { grid-template-columns: repeat(4, 1fr); }
-    .kit-showcase { grid-template-columns: 1fr; }
+    .kit-showcase-3 {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .kit-img-wrap--full {
+    grid-column: 1 / -1;
+    max-height: 340px;
+  }
+
+  .kit-img-wrap--full .kit-img {
+    aspect-ratio: 21/9;
+    object-position: center 30%;
+  }
+
+  .kit-showcase { grid-template-columns: 1fr; }
     .portfolio-grid { grid-template-columns: 1fr; }
     .pricing-split { grid-template-columns: 1fr; }
     footer { padding: 30px 24px; flex-direction: column; gap: 12px; }
@@ -1394,17 +1422,21 @@
 
   <!-- KIT RECREATIONS -->
   <div class="tos-card animate" style="margin-bottom: 20px;">
-    A sample of <strong>custom kit recreations</strong> — including Mike Portnoy's iconic kits.
+    A sample of <strong>custom kit recreations</strong>
   </div>
 
-  <div class="kit-showcase animate" style="margin-bottom: 12px;">
-    <div class="kit-img-wrap">
+  <div class="kit-showcase kit-showcase-3 animate" style="margin-bottom: 40px;">
+    <div class="kit-img-wrap kit-img-wrap--full">
       <img src="portnoy1.png" alt="Mike Portnoy Dream Monster Kit Recreation" class="kit-img" style="aspect-ratio: 16/9;" />
       <div class="kit-img-label">Mike Portnoy — Dream Monster Kit (Recreation)</div>
     </div>
     <div class="kit-img-wrap">
       <img src="portnoy2.png" alt="Mike Portnoy Drumeo Kit Recreation" class="kit-img" style="aspect-ratio: 16/9;" />
       <div class="kit-img-label">Mike Portnoy — Drumeo Kit (Recreation)</div>
+    </div>
+    <div class="kit-img-wrap">
+      <img src="presley.png" alt="Dan Presley Kit Recreation" class="kit-img" style="aspect-ratio: 16/9;" />
+      <div class="kit-img-label">Dan Presley — Drum Kit (Recreation)</div>
     </div>
   </div>
 
@@ -1447,6 +1479,30 @@
       <div class="portfolio-links">
         <a href="https://youtu.be/dKQliTNQupU" target="_blank" class="port-btn port-btn-yt">▶ Chart Video</a>
         <a href="https://paradb.net/map/ME2A1E8" target="_blank" class="port-btn port-btn-db">↗ Chart</a>
+      </div>
+    </div>
+
+        <div class="portfolio-entry featured-entry">
+      <div class="portfolio-title">Disposition</div>
+      <div class="portfolio-links">
+        <a href="https://youtu.be/Z76f7rx09m8" target="_blank" class="port-btn port-btn-yt">▶ Chart Video</a>
+        <a href="https://paradb.net/map/MF5FA52" target="_blank" class="port-btn port-btn-db">↗ Chart</a>
+      </div>
+    </div>
+
+            <div class="portfolio-entry">
+      <div class="portfolio-title">The Axe</div>
+      <div class="portfolio-links">
+        <a href="https://youtu.be/dKQliTNQupU" target="_blank" class="port-btn port-btn-yt">▶ Chart Video</a>
+        <a href="https://paradb.net/map/ME2A1E8" target="_blank" class="port-btn port-btn-db">↗ Chart</a>
+      </div>
+    </div>
+
+        <div class="portfolio-entry">
+      <div class="portfolio-title">Born in Winter</div>
+      <div class="portfolio-links">
+        <a href="https://youtu.be/ob2THLIX-Ug" target="_blank" class="port-btn port-btn-yt">▶ Chart Video</a>
+        <a href="https://paradb.net/map/M4E5E5B" target="_blank" class="port-btn port-btn-db">↗ Chart</a>
       </div>
     </div>
 
