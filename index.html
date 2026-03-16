@@ -941,10 +941,17 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    position: relative;
     color: var(--muted);
     font-size: 0.8rem;
     font-family: 'JetBrains Mono', monospace;
     letter-spacing: 0.05em;
+  }
+
+  .footer-kofi {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
   }
 
   footer a {
@@ -978,28 +985,62 @@
 
   /* PORTFOLIO */
   .portfolio-grid {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 1fr;
     gap: 10px;
   }
 
   .portfolio-entry {
-    flex: 1 1 calc(50% - 5px);
     min-width: 0;
     display: flex;
-    flex-direction: column;
-    gap: 12px;
-    padding: 22px 24px;
+    flex-direction: row;
+    align-items: stretch;
+    overflow: hidden;
     background: var(--card-bg);
     border: 1px solid var(--border);
     border-radius: 2px;
     transition: border-color 0.3s, transform 0.25s;
   }
 
+  .portfolio-art-wrap {
+    position: relative;
+    width: 110px;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+
+  .portfolio-art {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: brightness(0.75) saturate(1.1);
+    transition: filter 0.3s, transform 0.4s;
+  }
+
+
+
+  .portfolio-entry:hover .portfolio-art {
+    filter: brightness(0.9) saturate(1.2);
+    transform: scale(1.05);
+  }
+
+  .portfolio-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 16px 18px 16px 14px;
+    min-width: 0;
+    flex: 1;
+  }
+
+
+
   .portfolio-grid:has(.portfolio-entry:last-child:nth-child(odd)) .portfolio-entry:last-child {
-    flex: 0 1 calc(50% - 5px);
-    margin-left: auto;
-    margin-right: auto;
+    grid-column: 1 / -1;
+    width: calc(50% - 5px);
+    margin: 0 auto;
   }
 
   .portfolio-entry:hover {
@@ -1012,12 +1053,30 @@
     background: rgba(245,200,66,0.03);
   }
 
+  .portfolio-top {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
   .portfolio-title {
     font-family: 'DM Sans', sans-serif;
     font-weight: 600;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     color: var(--text);
     letter-spacing: 0.01em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.3;
+  }
+
+  .portfolio-artist {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
   }
 
   .featured-entry .portfolio-title {
@@ -1134,8 +1193,10 @@
 
   .kit-showcase { grid-template-columns: 1fr; }
     .portfolio-grid { grid-template-columns: 1fr; }
+    .portfolio-art { width: 48px; height: 48px; }
     .pricing-split { grid-template-columns: 1fr; }
     footer { padding: 30px 24px; flex-direction: column; gap: 12px; }
+    .footer-kofi { position: static; transform: none; }
     .hero-badge { display: none; }
   }
 
@@ -1443,155 +1504,231 @@
   <div class="portfolio-grid animate">
 
     <div class="portfolio-entry featured-entry">
-      <div class="portfolio-title">Painters of the Tempest, Pt. II (Triptych Lux)</div>
+      <div class="portfolio-art-wrap"><img class="portfolio-art" src="https://paradb.net/covers/MFCD4DC/album.jpg" alt="" loading="lazy" onerror="this.src=this.src.endsWith('.jpg')?this.src.replace('.jpg','.jpeg'):this.src.endsWith('.jpeg')?this.src.replace('.jpeg','.webp'):this.src.endsWith('.webp')?this.src.replace('.webp','.png'):void(this.style.display='none')"></div>
+      <div class="portfolio-body">
+      <div class="portfolio-top"><div class="portfolio-title">Painters of the Tempest, Pt. II (Triptych Lux)</div>
+      <div class="portfolio-artist">Ne Obliviscaris</div></div>
       <div class="portfolio-links">
         <a href="https://youtu.be/SEMfJXxarKM" target="_blank" class="port-btn port-btn-yt">▶ Chart Video</a>
         <a href="https://paradb.net/map/MFCD4DC" target="_blank" class="port-btn port-btn-db">↗ Chart</a>
       </div>
+          </div>
     </div>
 
     <div class="portfolio-entry featured-entry">
-      <div class="portfolio-title">The Shadow Man Incident</div>
+      <div class="portfolio-art-wrap"><img class="portfolio-art" src="https://paradb.net/covers/M0979E5/album.jpg" alt="" loading="lazy" onerror="this.src=this.src.endsWith('.jpg')?this.src.replace('.jpg','.jpeg'):this.src.endsWith('.jpeg')?this.src.replace('.jpeg','.webp'):this.src.endsWith('.webp')?this.src.replace('.webp','.png'):void(this.style.display='none')"></div>
+      <div class="portfolio-body">
+      <div class="portfolio-top"><div class="portfolio-title">The Shadow Man Incident</div>
+      <div class="portfolio-artist">Dream Theater</div></div>
       <div class="portfolio-links">
         <a href="https://youtu.be/6Sb7T6q3YZ0" target="_blank" class="port-btn port-btn-yt">▶ Chart Video</a>
         <a href="https://paradb.net/map/M0979E5" target="_blank" class="port-btn port-btn-db">↗ Chart</a>
       </div>
+          </div>
     </div>
 
     <div class="portfolio-entry featured-entry">
-      <div class="portfolio-title">Ticks &amp; Leeches</div>
+      <div class="portfolio-art-wrap"><img class="portfolio-art" src="https://paradb.net/covers/M5EDF9B/album.jpg" alt="" loading="lazy" onerror="this.src=this.src.endsWith('.jpg')?this.src.replace('.jpg','.jpeg'):this.src.endsWith('.jpeg')?this.src.replace('.jpeg','.webp'):this.src.endsWith('.webp')?this.src.replace('.webp','.png'):void(this.style.display='none')"></div>
+      <div class="portfolio-body">
+      <div class="portfolio-top"><div class="portfolio-title">Ticks &amp; Leeches</div>
+      <div class="portfolio-artist">TOOL</div></div>
       <div class="portfolio-links">
         <a href="https://youtu.be/d2kqfGswUEA" target="_blank" class="port-btn port-btn-yt">▶ Chart Video</a>
         <a href="https://paradb.net/map/M5EDF9B" target="_blank" class="port-btn port-btn-db">↗ Chart</a>
       </div>
+          </div>
     </div>
 
     <div class="portfolio-entry featured-entry">
-      <div class="portfolio-title">Undertow</div>
+      <div class="portfolio-art-wrap"><img class="portfolio-art" src="https://paradb.net/covers/M657F8C/album.jpg" alt="" loading="lazy" onerror="this.src=this.src.endsWith('.jpg')?this.src.replace('.jpg','.jpeg'):this.src.endsWith('.jpeg')?this.src.replace('.jpeg','.webp'):this.src.endsWith('.webp')?this.src.replace('.webp','.png'):void(this.style.display='none')"></div>
+      <div class="portfolio-body">
+      <div class="portfolio-top"><div class="portfolio-title">Undertow</div>
+      <div class="portfolio-artist">TOOL</div></div>
       <div class="portfolio-links">
         <a href="https://youtu.be/YaJOJOLFEUg" target="_blank" class="port-btn port-btn-yt">▶ Chart Video</a>
         <a href="https://paradb.net/map/M657F8C" target="_blank" class="port-btn port-btn-db">↗ Chart</a>
       </div>
+          </div>
     </div>
 
     <div class="portfolio-entry featured-entry">
-      <div class="portfolio-title">Kidnap the Sandy Claws</div>
+      <div class="portfolio-art-wrap"><img class="portfolio-art" src="https://paradb.net/covers/ME2A1E8/cover_v2.png" alt="" loading="lazy" onerror="this.src=this.src.endsWith('.jpg')?this.src.replace('.jpg','.jpeg'):this.src.endsWith('.jpeg')?this.src.replace('.jpeg','.webp'):this.src.endsWith('.webp')?this.src.replace('.webp','.png'):void(this.style.display='none')"></div>
+      <div class="portfolio-body">
+      <div class="portfolio-top"><div class="portfolio-title">Kidnap the Sandy Claws</div>
+      <div class="portfolio-artist">Korn</div></div>
       <div class="portfolio-links">
         <a href="https://youtu.be/LvGnZxDC7k4" target="_blank" class="port-btn port-btn-yt">▶ Chart Video</a>
         <a href="https://paradb.net/map/ME2A1E8" target="_blank" class="port-btn port-btn-db">↗ Chart</a>
       </div>
+          </div>
     </div>
 
     <div class="portfolio-entry featured-entry">
-      <div class="portfolio-title">6:00</div>
+      <div class="portfolio-art-wrap"><img class="portfolio-art" src="https://paradb.net/covers/ME2A1E8/cover_v2.png" alt="" loading="lazy" onerror="this.src=this.src.endsWith('.jpg')?this.src.replace('.jpg','.jpeg'):this.src.endsWith('.jpeg')?this.src.replace('.jpeg','.webp'):this.src.endsWith('.webp')?this.src.replace('.webp','.png'):void(this.style.display='none')"></div>
+      <div class="portfolio-body">
+      <div class="portfolio-top"><div class="portfolio-title">6:00</div>
+      <div class="portfolio-artist">Dream Theater</div></div>
       <div class="portfolio-links">
         <a href="https://youtu.be/dKQliTNQupU" target="_blank" class="port-btn port-btn-yt">▶ Chart Video</a>
         <a href="https://paradb.net/map/ME2A1E8" target="_blank" class="port-btn port-btn-db">↗ Chart</a>
       </div>
+          </div>
     </div>
 
     <div class="portfolio-entry featured-entry">
-      <div class="portfolio-title">Provider</div>
+      <div class="portfolio-art-wrap"><img class="portfolio-art" src="https://paradb.net/covers/M5B198C/album.jpg" alt="" loading="lazy" onerror="this.src=this.src.endsWith('.jpg')?this.src.replace('.jpg','.jpeg'):this.src.endsWith('.jpeg')?this.src.replace('.jpeg','.webp'):this.src.endsWith('.webp')?this.src.replace('.webp','.png'):void(this.style.display='none')"></div>
+      <div class="portfolio-body">
+      <div class="portfolio-top"><div class="portfolio-title">Provider</div>
+      <div class="portfolio-artist">Sleep Token</div></div>
       <div class="portfolio-links">
         <a href="https://youtu.be/6x90u3EA-Mo" target="_blank" class="port-btn port-btn-yt">▶ Chart Video</a>
         <a href="https://paradb.net/map/M5B198C" target="_blank" class="port-btn port-btn-db">↗ Chart</a>
       </div>
+          </div>
     </div>
 
     <div class="portfolio-entry featured-entry">
-      <div class="portfolio-title">Gethsemane</div>
+      <div class="portfolio-art-wrap"><img class="portfolio-art" src="https://paradb.net/covers/M1C7111/album.jpg" alt="" loading="lazy" onerror="this.src=this.src.endsWith('.jpg')?this.src.replace('.jpg','.jpeg'):this.src.endsWith('.jpeg')?this.src.replace('.jpeg','.webp'):this.src.endsWith('.webp')?this.src.replace('.webp','.png'):void(this.style.display='none')"></div>
+      <div class="portfolio-body">
+      <div class="portfolio-top"><div class="portfolio-title">Gethsemane</div>
+      <div class="portfolio-artist">Sleep Token</div></div>
       <div class="portfolio-links">
         <a href="https://youtu.be/vcNTrTy4ERk" target="_blank" class="port-btn port-btn-yt">▶ Chart Video</a>
         <a href="https://paradb.net/map/M1C7111" target="_blank" class="port-btn port-btn-db">↗ Chart</a>
       </div>
+          </div>
     </div>
 
     <div class="portfolio-entry">
-      <div class="portfolio-title">Disposition</div>
+      <div class="portfolio-art-wrap"><img class="portfolio-art" src="https://paradb.net/covers/MF5FA52/album.jpg" alt="" loading="lazy" onerror="this.src=this.src.endsWith('.jpg')?this.src.replace('.jpg','.jpeg'):this.src.endsWith('.jpeg')?this.src.replace('.jpeg','.webp'):this.src.endsWith('.webp')?this.src.replace('.webp','.png'):void(this.style.display='none')"></div>
+      <div class="portfolio-body">
+      <div class="portfolio-top"><div class="portfolio-title">Disposition</div>
+      <div class="portfolio-artist">TOOL</div></div>
       <div class="portfolio-links">
         <a href="https://youtu.be/Z76f7rx09m8" target="_blank" class="port-btn port-btn-yt">▶ Chart Video</a>
         <a href="https://paradb.net/map/MF5FA52" target="_blank" class="port-btn port-btn-db">↗ Chart</a>
       </div>
+          </div>
     </div>
 
     <div class="portfolio-entry">
-      <div class="portfolio-title">The Axe</div>
+      <div class="portfolio-art-wrap"><img class="portfolio-art" src="https://paradb.net/covers/M957417/album.jpg" alt="" loading="lazy" onerror="this.src=this.src.endsWith('.jpg')?this.src.replace('.jpg','.jpeg'):this.src.endsWith('.jpeg')?this.src.replace('.jpeg','.webp'):this.src.endsWith('.webp')?this.src.replace('.webp','.png'):void(this.style.display='none')"></div>
+      <div class="portfolio-body">
+      <div class="portfolio-top"><div class="portfolio-title">The Axe</div>
+      <div class="portfolio-artist">Gojira</div></div>
       <div class="portfolio-links">
         <a href="https://youtu.be/dKQliTNQupU" target="_blank" class="port-btn port-btn-yt">▶ Chart Video</a>
         <a href="https://paradb.net/map/M957417" target="_blank" class="port-btn port-btn-db">↗ Chart</a>
       </div>
+          </div>
     </div>
 
     <div class="portfolio-entry">
-      <div class="portfolio-title">Born in Winter</div>
+      <div class="portfolio-art-wrap"><img class="portfolio-art" src="https://paradb.net/covers/M4E5E5B/album.jpg" alt="" loading="lazy" onerror="this.src=this.src.endsWith('.jpg')?this.src.replace('.jpg','.jpeg'):this.src.endsWith('.jpeg')?this.src.replace('.jpeg','.webp'):this.src.endsWith('.webp')?this.src.replace('.webp','.png'):void(this.style.display='none')"></div>
+      <div class="portfolio-body">
+      <div class="portfolio-top"><div class="portfolio-title">Born in Winter</div>
+      <div class="portfolio-artist">Gojira</div></div>
       <div class="portfolio-links">
         <a href="https://youtu.be/ob2THLIX-Ug" target="_blank" class="port-btn port-btn-yt">▶ Chart Video</a>
         <a href="https://paradb.net/map/M4E5E5B" target="_blank" class="port-btn port-btn-db">↗ Chart</a>
       </div>
+          </div>
     </div>
 
     <div class="portfolio-entry">
-      <div class="portfolio-title">Dashboard</div>
+      <div class="portfolio-art-wrap"><img class="portfolio-art" src="https://paradb.net/covers/M851C3E/album.jpg" alt="" loading="lazy" onerror="this.src=this.src.endsWith('.jpg')?this.src.replace('.jpg','.jpeg'):this.src.endsWith('.jpeg')?this.src.replace('.jpeg','.webp'):this.src.endsWith('.webp')?this.src.replace('.webp','.png'):void(this.style.display='none')"></div>
+      <div class="portfolio-body">
+      <div class="portfolio-top"><div class="portfolio-title">Dashboard</div>
+      <div class="portfolio-artist">Modest Mouse</div></div>
       <div class="portfolio-links">
         <a href="https://youtu.be/gcULbHjf-ZY" target="_blank" class="port-btn port-btn-yt">▶ Chart Video</a>
         <a href="https://paradb.net/map/M851C3E" target="_blank" class="port-btn port-btn-db">↗ Chart</a>
       </div>
+          </div>
     </div>
 
     <div class="portfolio-entry">
-      <div class="portfolio-title">Dramatic</div>
+      <div class="portfolio-art-wrap"><img class="portfolio-art" src="https://paradb.net/covers/M452602/album.jpg" alt="" loading="lazy" onerror="this.src=this.src.endsWith('.jpg')?this.src.replace('.jpg','.jpeg'):this.src.endsWith('.jpeg')?this.src.replace('.jpeg','.webp'):this.src.endsWith('.webp')?this.src.replace('.webp','.png'):void(this.style.display='none')"></div>
+      <div class="portfolio-body">
+      <div class="portfolio-top"><div class="portfolio-title">Dramatic</div>
+      <div class="portfolio-artist">MASS OF THE FERMENTING DREGS</div></div>
       <div class="portfolio-links">
         <a href="https://youtu.be/ieX4ZxSln-Y" target="_blank" class="port-btn port-btn-yt">▶ Chart Video</a>
         <a href="https://paradb.net/map/M452602" target="_blank" class="port-btn port-btn-db">↗ Chart</a>
       </div>
+          </div>
     </div>
 
     <div class="portfolio-entry">
-      <div class="portfolio-title">Aoi, Koi, Daidaiiro No Hi</div>
+      <div class="portfolio-art-wrap"><img class="portfolio-art" src="https://paradb.net/covers/MA05D70/album.jpg" alt="" loading="lazy" onerror="this.src=this.src.endsWith('.jpg')?this.src.replace('.jpg','.jpeg'):this.src.endsWith('.jpeg')?this.src.replace('.jpeg','.webp'):this.src.endsWith('.webp')?this.src.replace('.webp','.png'):void(this.style.display='none')"></div>
+      <div class="portfolio-body">
+      <div class="portfolio-top"><div class="portfolio-title">Aoi, Koi, Daidaiiro No Hi</div>
+      <div class="portfolio-artist">MASS OF THE FERMENTING DREGS</div></div>
       <div class="portfolio-links">
         <a href="https://youtu.be/nKJOiDIeaTs" target="_blank" class="port-btn port-btn-yt">▶ Chart Video</a>
         <a href="https://paradb.net/map/MA05D70" target="_blank" class="port-btn port-btn-db">↗ Chart</a>
       </div>
+          </div>
     </div>
 
     <div class="portfolio-entry">
-      <div class="portfolio-title">Low Lands</div>
+      <div class="portfolio-art-wrap"><img class="portfolio-art" src="https://paradb.net/covers/M088F53/album.jpg" alt="" loading="lazy" onerror="this.src=this.src.endsWith('.jpg')?this.src.replace('.jpg','.jpeg'):this.src.endsWith('.jpeg')?this.src.replace('.jpeg','.webp'):this.src.endsWith('.webp')?this.src.replace('.webp','.png'):void(this.style.display='none')"></div>
+      <div class="portfolio-body">
+      <div class="portfolio-top"><div class="portfolio-title">Low Lands</div>
+      <div class="portfolio-artist">Haken</div></div>
       <div class="portfolio-links">
         <a href="https://youtu.be/rMeeplOieoU" target="_blank" class="port-btn port-btn-yt">▶ Chart Video</a>
         <a href="https://paradb.net/map/M088F53" target="_blank" class="port-btn port-btn-db">↗ Chart</a>
       </div>
+          </div>
     </div>
 
     <div class="portfolio-entry">
-      <div class="portfolio-title">Mouth of Kala</div>
+      <div class="portfolio-art-wrap"><img class="portfolio-art" src="https://paradb.net/covers/MEC13E0/Album.jpeg" alt="" loading="lazy" onerror="this.src=this.src.endsWith('.jpg')?this.src.replace('.jpg','.jpeg'):this.src.endsWith('.jpeg')?this.src.replace('.jpeg','.webp'):this.src.endsWith('.webp')?this.src.replace('.webp','.png'):void(this.style.display='none')"></div>
+      <div class="portfolio-body">
+      <div class="portfolio-top"><div class="portfolio-title">Mouth of Kala</div>
+      <div class="portfolio-artist">Gojira</div></div>
       <div class="portfolio-links">
         <a href="https://youtu.be/_jk1IbyDboA" target="_blank" class="port-btn port-btn-yt">▶ Chart Video</a>
         <a href="https://paradb.net/map/MEC13E0" target="_blank" class="port-btn port-btn-db">↗ Chart</a>
       </div>
+          </div>
     </div>
 
     <div class="portfolio-entry">
-      <div class="portfolio-title">Flood</div>
+      <div class="portfolio-art-wrap"><img class="portfolio-art" src="https://paradb.net/covers/MF2ED23/album.jpg" alt="" loading="lazy" onerror="this.src=this.src.endsWith('.jpg')?this.src.replace('.jpg','.jpeg'):this.src.endsWith('.jpeg')?this.src.replace('.jpeg','.webp'):this.src.endsWith('.webp')?this.src.replace('.webp','.png'):void(this.style.display='none')"></div>
+      <div class="portfolio-body">
+      <div class="portfolio-top"><div class="portfolio-title">Flood</div>
+      <div class="portfolio-artist">TOOL</div></div>
       <div class="portfolio-links">
         <a href="https://youtu.be/o_M3j-NkerQ" target="_blank" class="port-btn port-btn-yt">▶ Chart Video</a>
         <a href="https://paradb.net/map/MF2ED23" target="_blank" class="port-btn port-btn-db">↗ Chart</a>
       </div>
+          </div>
     </div>
 
     <div class="portfolio-entry">
-      <div class="portfolio-title">Pull Me Under</div>
+      <div class="portfolio-art-wrap"><img class="portfolio-art" src="https://paradb.net/covers/M625E9C/album.jpg" alt="" loading="lazy" onerror="this.src=this.src.endsWith('.jpg')?this.src.replace('.jpg','.jpeg'):this.src.endsWith('.jpeg')?this.src.replace('.jpeg','.webp'):this.src.endsWith('.webp')?this.src.replace('.webp','.png'):void(this.style.display='none')"></div>
+      <div class="portfolio-body">
+      <div class="portfolio-top"><div class="portfolio-title">Pull Me Under</div>
+      <div class="portfolio-artist">Dream Theater</div></div>
       <div class="portfolio-links">
         <a href="https://youtu.be/vSHhwPXiGZ8" target="_blank" class="port-btn port-btn-yt">▶ Chart Video</a>
         <a href="https://paradb.net/map/M625E9C" target="_blank" class="port-btn port-btn-db">↗ Chart</a>
       </div>
+          </div>
     </div>
 
     <div class="portfolio-entry">
-      <div class="portfolio-title">Almost Easy</div>
+      <div class="portfolio-art-wrap"><img class="portfolio-art" src="https://paradb.net/covers/M447319/album.jpg" alt="" loading="lazy" onerror="this.src=this.src.endsWith('.jpg')?this.src.replace('.jpg','.jpeg'):this.src.endsWith('.jpeg')?this.src.replace('.jpeg','.webp'):this.src.endsWith('.webp')?this.src.replace('.webp','.png'):void(this.style.display='none')"></div>
+      <div class="portfolio-body">
+      <div class="portfolio-top"><div class="portfolio-title">Almost Easy</div>
+      <div class="portfolio-artist">Avenged Sevenfold</div></div>
       <div class="portfolio-links">
         <a href="https://youtu.be/ZhWb9ORGYQY" target="_blank" class="port-btn port-btn-yt">▶ Chart Video</a>
         <a href="https://paradb.net/map/M447319" target="_blank" class="port-btn port-btn-db">↗ Chart</a>
       </div>
+          </div>
     </div>
 
   </div>
@@ -1606,7 +1743,7 @@
 
 <footer>
   <span>Fencil Commissions</span>
-  <span>Payment via <a href="https://ko-fi.com/fencil/commissions" target="_blank">Ko-fi — Fencil →</a></span>
+  <span class="footer-kofi">Payment via <a href="https://ko-fi.com/fencil/commissions" target="_blank">Ko-fi — Fencil →</a></span>
   <span><a href="https://discord.com/invite/Y3Pz2MZwe3" target="_blank">Discord →</a></span>
 </footer>
 
