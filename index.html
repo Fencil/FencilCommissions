@@ -1006,6 +1006,7 @@
   .portfolio-art-wrap {
     position: relative;
     width: 110px;
+    aspect-ratio: 1;
     flex-shrink: 0;
     overflow: hidden;
   }
@@ -1193,7 +1194,8 @@
 
   .kit-showcase { grid-template-columns: 1fr; }
     .portfolio-grid { grid-template-columns: 1fr; }
-    .portfolio-art { width: 48px; height: 48px; }
+    .portfolio-art-wrap { width: 90px; aspect-ratio: 1; }
+    .portfolio-grid:has(.portfolio-entry:last-child:nth-child(odd)) .portfolio-entry:last-child { grid-column: 1; width: 100%; max-width: 100%; margin: 0; }
     .pricing-split { grid-template-columns: 1fr; }
     footer { padding: 30px 24px; flex-direction: column; gap: 12px; }
     .footer-kofi { position: static; transform: none; }
